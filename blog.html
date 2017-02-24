@@ -2,4 +2,14 @@
 layout: default
 ---
 
-<h3>Blog</h3>
+<h3 class="text-center">Blog</h3>
+
+<ul>
+  {% for post in site.posts %}
+  <li>
+    <a href="{{ post.url }}"><h4>{{ post.title }}</h4></a>
+    <p>{{ post.excerpt }}&nbsp;&nbsp;<a href="">[read more]</a></p>
+  </li>
+  <hr>
+  {% endfor %}
+</ul>
