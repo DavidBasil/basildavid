@@ -7,7 +7,7 @@ layout: default
 <ul>
   {% for post in site.posts %}
   <li>
-    <a href="{{ post.url }}"><h4>{{ post.title }}</h4></a>
+    <a href="{{ site.baseurl }}{{ post.url }}"><h4>{{ post.title }}</h4></a>
     <p>{{ post.excerpt }}&nbsp;&nbsp;<a href="">[read more]</a></p>
   </li>
   <hr>
