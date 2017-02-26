@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
 .navbar-default {
   font-size: 20px;
 }
 
 a.navbar-brand {
   border-right: 1px solid #D9EDF7;
+  font-family: 'Source Code Pro', monospace;
 }
 
 i.fa.fa-github span {
@@ -24,8 +27,9 @@ p {
 }
 
 footer.navbar-fixed-bottom.text-center {
-  background-color: #000;
+  background-color: #375A7F;
   color: #fff;
+  margin-top: 20px;
 }
 
 footer.navbar-fixed-bottom.text-center p {
@@ -50,4 +54,8 @@ div.article h3 {
 
 div.article p {
   margin-top: 5px;
+}
+
+div.container-fluid.bg-3.text-center {
+  margin-bottom: 25px;
 }
