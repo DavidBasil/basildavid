@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>David Basil</title>
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai-sublime.min.css">
   <script type="text/javascript" src="{{ site.baseurl }}/assets/js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/assets/js/main.js"></script>
   <script type="text/javascript" src="{{ site.baseurl }}/assets/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
 
@@ -18,7 +25,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">david_basil</a>
+      <a class="navbar-brand" href="#">&lt;david_basil&gt;</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -29,17 +36,22 @@
         <li class="{% if page.url == '/contact.html' %}active{% endif %}"><a href="{{ site.baseurl }}/contact.html">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"></a></li>
+        <li class=""><a href="https://github.com/DavidBasil">
+          <i class="fa fa-github"> <span>my github account</span></i>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
 
 <div class="container">
-{{ content }}
+  <div class="row">
+  {{ content }}
+  </div>
 </div>
 
-<footer class="navbar navbar-fixed-bottom">
+<footer class="navbar-fixed-bottom text-center">
   <p>&copy; 2017 David Basil</p>
 </footer>
 

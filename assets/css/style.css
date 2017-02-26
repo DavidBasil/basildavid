@@ -1,7 +1,53 @@
-.navbar-nav {
+.navbar-default {
   font-size: 20px;
 }
 
-ul {
-  list-style-type: none;
+a.navbar-brand {
+  border-right: 1px solid #D9EDF7;
+}
+
+i.fa.fa-github span {
+  font-family: Lato;
+}
+
+i.fa.fa-paper-plane-o span {
+  font-family: Lato;
+}
+
+p {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.img-responsive.img-thumbnail {
+  max-width: 200px;
+}
+
+footer.navbar-fixed-bottom.text-center {
+  background-color: #000;
+  color: #fff;
+}
+
+footer.navbar-fixed-bottom.text-center p {
+  padding: 10px;
+}
+
+li.list-group-item h4 {
+  text-decoration: underline;
+}
+
+p.text-success, p.text-warning {
+  font-size: 20px;
+}
+
+pre {
+  font-size: 16px;
+}
+
+div.article h3 {
+  color: #0CE3AC;
+}
+
+div.article p {
+  margin-top: 5px;
 }

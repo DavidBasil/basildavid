@@ -4,12 +4,12 @@ layout: default
 
 <h3 class="text-center">Blog</h3>
 
-<ul>
+<ul class="list-group">
   {% for post in site.posts %}
-  <li>
+  <li class="list-group-item">
     <a href="{{ site.baseurl }}{{ post.url }}"><h4>{{ post.title }}</h4></a>
-    <p>{{ post.excerpt }}&nbsp;&nbsp;<a href="">[read more]</a></p>
+    <small class="text-warning">{{ post.date | date_to_long_string }}</small>
+    <p>{{ post.excerpt }}</p>
   </li>
-  <hr>
   {% endfor %}
 </ul>

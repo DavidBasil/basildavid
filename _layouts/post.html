@@ -2,6 +2,10 @@
 layout: default
 ---
 
-<h3 class="text-center">{{ page.title }}</h3>
-
-{{ content }}
+<div class="container-fluid">
+  <div class="article">
+  <h3 class="text-center">{{ page.title }}</h3>
+  <small class="text-warning">{{ page.date | date_to_string  }}</small>
+  {{ content }}
+  </div>
+</div>
