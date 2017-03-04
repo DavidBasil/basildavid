@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
 
+body {
+  font-size: 16px;
+}
+
 .navbar-default {
   font-size: 20px;
 }
@@ -10,16 +14,18 @@ a.navbar-brand {
 }
 
 i.fa.fa-github span {
-  font-family: Lato;
+  font-family: 'Source Code Pro', monospace;
 }
 
-i.fa.fa-paper-plane-o span {
-  font-family: Lato;
-}
+
 
 p {
   font-size: 17px;
   line-height: 1.6;
+}
+
+.active {
+  color: red;
 }
 
 .img-responsive.img-thumbnail {
@@ -48,8 +54,10 @@ pre {
   font-size: 16px;
 }
 
-div.article h3 {
-  color: #0CE3AC;
+
+
+div.article {
+  margin-bottom: 100px;
 }
 
 div.article p {
@@ -58,4 +66,9 @@ div.article p {
 
 div.container-fluid.bg-3.text-center {
   margin-bottom: 100px;
+}
+
+form span {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 16px;
 }
