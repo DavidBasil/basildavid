@@ -1,3 +1,5 @@
 baseurl: 
 exclude: ['README.md']
 permalink: pretty
+gems:
+  - jekyll-seo-tag
