@@ -1,0 +1,186 @@
+---
+layout: post
+title: Django Blog tutorial, part 1
+excerpt: Setup, App, Models, Migrations
+---
+
+<div class="well">
+  <h4>Index</h4>
+  <ol>
+    <li><a href="#setup">Setup</a></li>
+    <li><a href="#django">Start Django project</a></li>
+    <li><a href="#app">App</a></li>
+    <li><a href="#model">Models</a></li>
+    <li><a href="#migrations">Migrations</a></li>
+  </ol>
+</div>
+
+<p>This is the first part of "Django Blog" series. In this post we will learn about python virtual environment, installing django framework and running our first website.</p>
+
+<p id="setup">First and foremost, make sure you have python installed on your machine. To do so, type python in your terminal. If python console does not show up, go to python.org and download the latest version; make sure its python 3.
+After we have installed python, we need to create a virtual envronment in order to have an isolated workspace. Run: 
+<pre><code class="bash">pip install virtualenv</code></pre>
+</p>
+
+<p>Lets call our blog something fancy, like "Fitness Laface"; we will deploy our project with the same name. Now we need to create a virtual environment. Run:
+<pre><code class="bash">virtualenv fitnesslaface_env:</code></pre>
+</p>
+
+<p>That command created a new directory called fitnesslaface_env.</p>
+<pre><code class="nohighlight">
+  <i class="fa fa-folder-o"></i> include
+  <i class="fa fa-folder-o"></i> Lib
+  <i class="fa fa-folder-o"></i> Scripts
+  <i class="fa fa-folder-o"></i> tcl
+  pip-selfcheck.json
+</code></pre>
+
+<p>Now go to that folder and run the following command to activate the virtual environment:
+<pre><code class="bash">source Scripts/activate</code></pre>
+or for linux:
+<pre><code class="bash">source bin/activate</code></pre>
+The virtual workspace is active now and all packages/modules will be installed locally into this environment; they will be located in "lib/site-packages". Type "deactivate" any time to turn off the environment.
+</p>
+
+<hr>
+
+<p id="django">Now we need to install Django framework. Run:
+<pre><code class="bash">pip install django</code></pre>
+Pip will install the latest version of django by default but we can customize it. Lets install version 1.10. Run:
+<pre><code class="bash">pip install django==1.10</code></pre>
+</p>
+
+<p>We can verify our django installation via terminal. Launch python console by typing "python"; then import django and check the django's version:
+<pre><code class="bash">>>> import django
+>>> django.VERSION
+(1, 10, 4, 'final', 0)
+</code></pre>
+</p>
+
+<p>After that we will generate our project. Run:
+<pre><code class="bash">django-admin startproject fitnesslaface</code></pre>
+This command created a new directory(folder) in our environment called fitnesslaface:
+<pre><code class="nohighlight">
+  <i class="fa fa-folder-o"></i> fitnesslaface
+  <i class="fa fa-folder-o"></i> include
+  <i class="fa fa-folder-o"></i> Lib
+  <i class="fa fa-folder-o"></i> Scripts
+  <i class="fa fa-folder-o"></i> tcl
+  pip-selfcheck.json
+</code></pre>
+Open it up with your favorite code editor and let's have a look.
+We have a <mark>fitnesslaface</mark> folder and <mark>manage.py</mark>. The last one is a python file that helps us interact with our project via command line. Open fitnesslaface folder; we have 4 files here:
+<ul>
+  <li><mark>__init__.py:</mark> an empty file that informs Python to treat its parent directory (fitnesslaface) as a module.</li>
+  <li><mark>settings.py:</mark> as you've guessed it, our project's configuration file.</li>
+  <li><mark>urls.py:</mark> this file controlls URL patterns.</li>
+  <li><mark>wsigi.py:</mark> WSGI - Web Server Gateway Interface - technology that enables us to run python on the server.</li>
+</ul>
+Ignore <mark>manage.py, __init__.py and wsgi.py</mark> files at this stage. We are going to work mainly with settings.py and urls.py.
+</p>
+
+<hr>
+
+<p>Django uses SQLite database by default. Many developers say that this database is only good for development purposes and one should work with MySql or PostgreSql in real world scenarios. I personally disagree with that opinion but that's a topic of a different discussion.
+At this stage you don't need to worry about database configuration. Django creates database files with a simple terminal command:
+<pre><code class="bash">python manage.py migrate</code></pre>
+Django has just generated file "db.sqlite3" in our project's main directory. You can view it with <a href="http://sqlitebrowser.org/">DB browser for SQlite.</a>. We can see that django created database tables specific to our project.
+</p>
+
+<hr>
+
+<p>Django has its own little web server to help us test our project. Run:
+<pre><code class="bash">python manage.py runserver</code></pre>
+Server runs on port 8000 by default but we can customize it. Lets lauch our server on port 8001:
+<pre><code class="bash">python manage.py runserver 8001</code></pre>
+Terminal gives us the link. Insert it in the web browser and press enter. Here we see django's welcome screen. It does not say much at this moment, but it means that we've done everything correctly up to this point. Our Django application is working.
+</p>
+
+<hr>
+
+<p id="app">App (application) is a Django term and can be defined as "a block with a distinct functionality"; it can be a forum section, chat or even a contact page. This concept might seem unclear for a beginner but you will get used to it overtime. Run:
+<pre><code class="bash">python manage.py startapp blog</code></pre>
+We created blog app since our website's main functionlality is going to be creating and managing blog posts. Django created a new folder named blog. Let's have a look at it:
+</p>
+
+<ul>
+  <li><mark>migrations:</mark> a diretory containing app's migration files. Migrations track changes in our database.</li>
+  <li><mark>__init__.py:</mark> we are already familiar with this file.</li>
+  <li><mark>admin.py:</mark> allows us to register models into admin site. We'll talk about models and admin site later.</li>
+  <li><mark>app.py:</mark> application configuration file specific to the current app.</li>
+  <li><mark>test.py:</mark> we can add tests here if we want to.</li>
+  <li><mark>views.py:</mark> this file contains our app's logic; it handles http requests and responses.</li>
+</ul>
+
+<hr>
+
+<p id="model">Now let's think about our blog's data. What do we need? A blog post, of course.</p>
+<p>Open <mark>models.py</mark> of the blog app and create a Post model. Django will generate a database table according to that model. Think of a model as a table in the database.</p>
+<p>In models.py import models, timezone and User modules and create Post model:
+<pre><code class="python">
+from django.db import models 
+from django.utils import timezone
+from django.contrib.auth.models import User
+
+class Post(models.Model):
+    title = models.CharField(max_length=250)
+    slug = models.SlugField(max_length=250, unique_for_date='publish')
+    author = models.ForeignKey(User, related_name='blog_posts')
+    body = models.TextField()
+    publish = models.DateTimeField(default=timezone.now)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-publish',)
+
+    def __str__(self):
+        return self.title
+</code></pre>
+<p>Key notes:
+<ul>
+  <li>Django model is just a Python class.</li>
+  <li><mark>title:</mark> post's title.</li>
+  <li><mark>slug:</mark> a label we'll use to build SEO-friendly urls.</li>
+  <li><mark>author:</mark> in this attribute we define a "one-to-many" relationship. It means that one user can have many (multiple) blog posts but each post can have only one user (an author in our case).</li>
+  <li><mark>body:</mark> post's context.</li>
+  <li><mark>publish:</mark> post's publication date.</li>
+  <li><mark>updated:</mark> indicates the last time the post was updated</li>
+  <li>Each attribute of the model corresponds to the database field with the same name.</li>
+  <li>Class <mark>Meta</mark> enables us to make little changes to our model. Here we sort our posts according to the publication date in a descending order.</li>
+  <li>The <mark>__str__</mark> method gives a database object a nice, readable title.</li>
+</ul>
+More on <a href="https://docs.djangoproject.com/en/1.10/topics/db/models/">Django models.</a>
+</p>
+<p>
+After we defined the Post model, lets install "pytz" module to make Django aware about time zones. Run:
+<pre><code class="bash">pip install pytz</code></pre>
+</p>
+
+<hr>
+
+<p id="migrations">We created a blog app but Django project is not aware of it. We need to add "blog" into "INSTALLED_APPS" in settings.py.
+<pre><code class="python">
+  INSTALLED_APPS = [
+    'blog',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+</code></pre>
+</p>
+
+<p>Now we are going to create a table of the Post model. Run:
+<pre><code class="bash">python manage.py makemigrations</code></pre>
+</p>
+
+<p>Django has just created a migration file "0001_inital.py" in migrations folder.</p>
+<p>Now sync that database with our Post model by running:
+<pre><code class="bash">python manage.py migrate</code></pre>
+The database is now in sync with our models. 
+</p>
+
+
+

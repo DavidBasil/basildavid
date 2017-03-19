@@ -1,0 +1,25 @@
+---
+layout: post
+title: Django Blog tutorial, part 2
+excerpt: Setup, App, Models, Migrations
+published: false
+---
+
+In this tutorial we don't touch database queries. If you need to have a look at them go to <a href="">django database queries.</a>
+
+In this part of the tutorial we'll focus on views. Our blog will need a list and detail view. Django view receives http request and responds appropriately.
+
+List of posts, edit views.py
+import render and get_object_or_404
+Python function post_list, get all posts from database, render template and context.
+
+Single post view:
+def post_detail: takes year, month, day and post as arguments
+we use get_object_or_404 method to retrieve the desired post; it launches 404 not found error if can't find that specific post.
+use render 
+
+Create urls.py in blog folder
+import url and views
+first pattern mapps to post_list function, second one to post_detail, it takes arguments need for the post_detail view to look up for the specific post.
+
+Add blog's urls to the main urls.py
