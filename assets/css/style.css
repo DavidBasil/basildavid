@@ -2,7 +2,7 @@
 
 
 body {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .navbar-default {
@@ -53,7 +53,7 @@ p.text-success, p.text-warning {
 }
 
 pre {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 div.article {
