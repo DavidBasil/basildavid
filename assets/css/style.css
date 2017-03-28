@@ -37,11 +37,14 @@ p {
 footer.navbar-fixed-bottom.text-center {
   background-color: #375A7F;
   color: #fff;
-  margin-top: 20px;
 }
 
 footer.navbar-fixed-bottom.text-center p {
   padding: 10px;
+}
+
+ul.list-group {
+  margin-bottom: 100px;
 }
 
 li.list-group-item h4 {
