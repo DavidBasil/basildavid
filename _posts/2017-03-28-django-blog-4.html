@@ -1,0 +1,464 @@
+---
+layout: post
+title: Django Blog tutorial, part 4
+description: learn how to build django blog application
+keywords: Django, django, python, web application, programming, blog, django blog tutorial
+excerpt: User Authentication and Registration
+published: true
+---
+
+<p>In this part of the tutorial we'll learn about a very important functionality that any modern web applicaton should have: user authentication. </p>
+<div class="well">
+  <h4>Index</h4>
+  <ol>
+    <li><a href="#login">log in</a></li>
+    <li><a href="#logout">log out</a></li>
+    <li><a href="#dashboard">dashboard</a></li>
+    <li><a href="#pchange">change password</a></li>
+    <li><a href="#preset">reset password</a></li>
+    <li><a href="#register">register</a></li>
+    <!-- <li>have his own dashboard</li> -->
+  </ol>
+</div>
+
+<p>For the authentication management let's create an app called "account". Run:
+<pre><code class="bash">python manage.py startapp account</code></pre>
+Add 'account' to installed apps and run:
+<pre><code class="bash">python manage.py migrate</code></pre>
+</p>
+
+<p>We could build an authentication system by ourlselves but Django has its own. It's very easy to use and will save us a lot of time.</p>
+
+<p>Create <mark>urls.py</mark> in 'account' directory:
+<pre><code class="python">
+from django.conf.urls import url
+from django.contrib.auth.views import login
+from django.contrib.auth.views import logout
+from django.contrib.auth.views import logout_then_login
+from django.contrib.auth.views import password_change
+from django.contrib.auth.views import password_change_done
+from django.contrib.auth.views import password_reset
+from django.contrib.auth.views import password_reset_done
+from django.contrib.auth.views import password_reset_confirm
+from django.contrib.auth.views import password_reset_complete
+</code></pre>
+We import default views of django's authentication framework that will handle most of the work for us; we won't even need to create our views for user validation.
+</p>
+
+<p>Make a templates folder for account application and a subfolder named 'registration'. This is a directory that authentication framework looks for authentication templates. Now let's take care of log-in and log-out. </p>
+
+<p>Insert the following code into <mark>urls.py</mark>:
+<pre><code class="python">
+urlpatterns = [
+  # login/logout
+    url(r'^login/$', login, name='login'),
+    url(r'^logout/$', logout, name='logout'),
+    url(r'^logout-then-login/$', logout_then_login,
+        name='logout_then_login'),
+]  
+</code></pre>
+Simple, right?</p>
+<p id="login">Now make a new file called <mark>login.html</mark> in registration directory. Fill it out with the following code:
+<pre><code class="html">
+{% raw %} 
+{% extends 'blog/base.html' %}
+
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+
+&lt;h2&gt;Log In&lt;/h2&gt;
+&lt;div class=&quot;login-form&quot;&gt;
+  &lt;form action=&quot;{% url 'account:login' %}&quot; method=&quot;POST&quot;&gt;
+    {% csrf_token %}
+    {{ form.as_p }}
+    &lt;input type=&quot;hidden&quot; name=&quot;next&quot; value=&quot;{{ next }}&quot;&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Log-In&quot;&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If you don't have an account, &lt;a href=&quot;{% url 'account:register' %}&quot;&gt;register here.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;{% url 'account:password_reset' %}&quot;&gt;Password reset&lt;/a&gt;&lt;/p&gt;
+
+{% if form.errors %}
+
+&lt;p&gt;Your username and password didn't match, try again.&lt;/p&gt;
+
+{% endif %}
+
+{% endblock %} 
+{% endraw %}
+</code></pre>
+This template will display the form with username and password input. Django uses its own authentication form. If submitted credentials are incorrect the error message will be shown under the login form.
+</p>
+
+<p id="logout">Now create <mark>logged_out.html</mark> template:
+<pre><code class="html">
+{% raw %}
+{% extends 'blog/base.html' %}
+
+{% block title %}Logged Out{% endblock %}
+
+{% block content %}
+
+&lt;p&gt;You are logged out. You can &lt;a href=&quot;{% url 'account:login' %}&quot;&gt;log in again.&lt;/a&gt;&lt;/p&gt;
+
+{% endblock %}
+{% endraw %}
+</code></pre>
+Add account's urls into project's <mark>urls.py</mark>:
+<pre><code class="python">
+url(r'^account/', include('account.urls', namespace='account')),  
+</code></pre>
+Our application now has a simple log-in and log-out functionality. 
+</p>
+
+<hr>
+
+<p id="dashboard">Next we are going to build a dashboard view for the users.
+Edit <mark>views.py:</mark>
+<pre><code class="python">
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def dashboard(request):
+    return render(request, 'account/dashboard.html', {'section': 'dashboard'})
+</code></pre>
+We import and use 'login_required' decorator; the user will be able to access the dashboard only when he's logged in. What do we need next? A dashboard template.
+</p>
+
+<p>Make a new folder in templates directory called 'account'. Create a file <mark>dashboard.html:</mark>
+<pre><code class="html">
+{% raw %}
+{% extends 'blog/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+&lt;h2&gt;Dashboard&lt;/h2&gt;
+
+&lt;ul class=&quot;menu&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;{% url 'blog:post_list' %}&quot;&gt;Blog&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+{% endblock %}
+{% endraw %}
+</code></pre>
+Also add dashboard url pattern into <mark>urls.py</mark>:
+<pre><code class="python">
+urlpatterns = [
+  ...
+  # dashboard
+  url(r'^$', views.dashboard, name='dashboard'),
+
+]
+</code></pre>
+</p>
+
+<p>Next we need to somehow redirect the user to the dashboard view when he logs in. Edit <mark>settings.py</mark>:
+<pre><code class="python">...
+# login links
+from django.core.urlresolvers import reverse_lazy
+
+LOGIN_REDIRECT_URL = reverse_lazy('account:dashboard')
+LOGIN_URL = reverse_lazy('account:login')
+LOGOUT_URL = reverse_lazy('account:logout')  
+</code></pre>
+Let's see what those are:
+<ul>
+<li>LOGOUT_REDIRECT_URL: redirects to dashboard after user logs in.</li>
+<li>LOGIN_URL: url to redirect the user to log in.</li>
+<li>LOGOUT_URL: redirects the user to log out view.</li>
+</ul>
+</p>
+
+<p>To finish this section we will add log-in and log-out links to our main template, <mark>base.html</mark>:
+<pre><code class="html">{% raw %}
+{% load staticfiles %}
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;{% block title %}{% endblock %}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;container&quot;&gt;
+
+  &lt;div id=&quot;header&quot;&gt;
+    &lt;span class=&quot;user&quot;&gt;
+    {% if request.user.is_authenticated %}
+      &lt;ul class=&quot;menu&quot;&gt;
+        &lt;li&gt;Hello {{ request.user.username }}, &lt;a href=&quot;{% url 'account:logout' %}&quot;&gt;log-out&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;{% url 'account:dashboard' %}&quot;&gt;Your Dashboard&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    {% else %}
+      &lt;a href=&quot;{% url 'account:login' %}&quot;&gt;Log-In&lt;/a&gt;
+    {% endif %}
+    &lt;/span&gt;
+  &lt;/div&gt;
+
+  {% block content %}
+  {% endblock %}
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+{% endraw %}
+</code></pre>
+If the user is authenticated, we greet him by the username and offer links of log-out and dashboard. If the user is not authneticated, we display a log-in link. Simple.
+</p>
+
+<p>To test all of this go to 'http://127.0.0.1:8000/account/login/', type in superuser's login credentials and log in. You will be greeted by dashboard.</p>
+
+<hr>
+
+<p id="pchange">What if the user wants to change his password? No problem, we can manage that. Edit <mark>urls.py</mark>:
+<pre><code class="python">
+# password change
+url(r'^password-change/$', password_change, 
+    {'post_change_redirect': 'account:password_change_done'}, 
+    name='password_change'),
+url(r'^password-change/done/$', password_change_done, 
+    name='password_change_done'),
+</code></pre>
+Two steps are performed here:
+<ol>
+  <li>Display of password change form.</li>
+  <li>Display of password change message.</li>
+</ol>
+</p>
+
+<p>Add a new file in registraton directory and name it <mark>password_change_form.html</mark>:
+<pre><code class="html">{% raw %}
+{% extends 'blog/base.html' %}
+
+{% block title %}Password change{% endblock %}
+
+{% block content %}
+
+&lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+  {% csrf_token %}
+  {{ form.as_p }}
+  &lt;input type=&quot;submit&quot; value=&quot;Change&quot;&gt;
+&lt;/form&gt;
+
+{% endblock %}  
+{% endraw %}
+</code></pre>
+This template displays the form to change the password. Add another file called <mark>password_change_done.html</mark>:
+<pre><code class="html">{% raw %} 
+{% extends 'blog/base.html' %}
+
+{% block title %}Password change{% endblock %}
+
+{% block content %}
+
+&lt;h2&gt;Password has been successfully changed.&lt;/h2&gt;
+
+{% endblock %} 
+{% endraw %}
+</code></pre>
+This template displays the success message when the user has changed his password. Go 'to http://127.0.0.1:8000/account/password-change/' in the browser and try to change the password.
+</p>
+
+<hr>
+
+<p id="preset">What is the user forgot his password? We should somehow let users reset their credentials. Edit <mark>urls.py</mark>:
+<pre><code class="python">...
+{% raw %}
+# password reset
+url(r'^password-reset/$', password_reset, 
+        {'post_reset_redirect' : 'account:password_reset_done'}, 
+        name='password_reset'),
+url(r'^password-reset/done/$', password_reset_done, 
+        name='password_reset_done'),
+url(r'^password-reset/confirm/(?P&lt;uidb64&gt;[-\w]+)/(?P&lt;token&gt;[-\w]+)/$', password_reset_confirm, ,
+url(r'^password-reset/complete/$', password_reset_complete,
+        name='password_reset_complete'),
+</code></pre>
+{% endraw %}
+Now we need to create a bunch of templates in the 'registration' directory.
+<ul>
+  <li><mark>password_reset_form.html:</mark>
+    <pre><code class="html">
+    {% raw %}
+    {% extends 'blog/base.html' %}
+
+    {% block title %}{% endblock %}
+
+    {% block content %}
+
+    &lt;h2&gt;Password Reset&lt;/h2&gt;
+    &lt;p&gt;Enter your email and we will send a link with a new password:&lt;/p&gt;
+    &lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+      {% csrf_token %}
+      {{ form.as_p }}
+      &lt;input type=&quot;submit&quot; value=&quot;Send new password&quot;&gt;
+    &lt;/form&gt;
+
+    {% endblock %}  
+    {% endraw %}
+    </code></pre>
+  </li>
+  <li><mark>password_reset_email.html:</mark>
+    <pre><code class="html">
+    {% raw %}
+    Follow this link to reset your password:
+    {{ protocol }}://{{ domain }}{% url 'password_reset_confirm' 
+    uidb64=uid token=token %}  
+    {% endraw %}
+    </code></pre>
+  </li>
+  <li><mark>password_reset_done.html:</mark>
+    <pre><code class="html">
+    {% raw %}
+    {% extends 'blog/base.html' %}
+
+    {% block title %}Password Reset{% endblock %}
+
+    {% block content %}
+
+    &lt;p&gt;We've emailed you the link for password reset.&lt;/p&gt;
+
+    {% endblock %}  
+    {% endraw %}
+    </code></pre>
+  </li>
+  <li><mark>password_reset_confirm.html</mark>:
+    <pre><code class="html">
+    {% raw %}
+    {% extends 'base.html' %}
+
+    {% block title %}Password Reset{% endblock %}
+
+    {% block content %}
+
+    {% if validlink %}
+
+    &lt;p&gt;Enter your password twice:&lt;/p&gt;
+    &lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+      {% csrf_token %}
+      {{ form.as_p }}
+      &lt;input type=&quot;submit&quot; value=&quot;Change password&quot;&gt;
+    &lt;/form&gt;
+    {% else %}
+      &lt;p&gt;The password reset link was invalid; requesnt a new password reset.&lt;/p&gt;
+    {% endif %}
+
+    {% endblock %}  
+    {% endraw %}
+    </code></pre>
+  </li>
+  <li><mark>password_reset_complete.html</mark>:
+    <pre><code class="html">
+    {% raw %}
+    {% extends 'blog/base.html' %}
+
+    {% block title %}Password Reset{% endblock %}
+
+    {% block content %}
+
+    &lt;p&gt;Your new password has been set. You can &lt;a href=&quot;{% url 'account:login' %}&quot;&gt;log in &lt;/a&gt;&lt;/p&gt;
+
+    {% endblock %}  
+    {% endraw %}
+    </code></pre>
+  </li>
+</ul>
+Don't forget to put '{% raw %}&lt;p&gt;&lt;a href=&quot;{% url 'account:password_reset' %}&quot;&gt;Password reset&lt;/a&gt;&lt;/p&gt;{% endraw %}' into <mark>login.html</mark>
+</p>
+
+<p>After we're done with urls and templates we have to configure our email settings to be able to send password reset email when the user requests so. We will learn about SMTP (simple mail transfer protocol) in the next tutorials and for now a simple terminal email output will be enough. Edit <mark>settings.py</mark>:
+<pre><code class="python">...
+# email backend
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  
+</code></pre>
+Go back to login page and click on reset password. Enter user's email. Django will print the email into our terminal; copy the link and enter it into browser's address bar. It will take you to the password reset form and you will be able to set a new password. Try to log in using the new password to check that everything works smoothly.
+</p>
+
+<hr>
+
+<p id="register">Everything is fine but how can a user register his account? We clearly need a user registration system. Create <mark>forms.py</mark>:
+<pre><code class="python">
+from django import forms
+from django.contrib.auth.models import User
+
+class UserRegistrationForm(forms.ModelForm):
+    password = forms.CharField(label='password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='repeat password', 
+                                widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd['password'] != cd['password2']:
+            raise forms.ValidationError('Passwords don\'t match.')
+        return cd['password2']  
+</code></pre>
+'UserRegistrationForm' uses django's 'User' model for user registration. We only use username and email fields for our form but the main feature of this form is password validation. We require a user to input two identical passwords; a validation error is raised if they don't match. Now edit <mark>views.py</mark>:
+<pre><code class="python">
+from .forms import UserRegistrationForm
+
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            return render(request, 'account/register_done.html', {
+                                    'new_user': new_user
+                          })
+    else:
+        user_form = UserRegistrationForm()
+    return render(request, 'account/register.html', {'user_form': user_form})  
+</code></pre>
+Function 'register' checks the submitted form for validity. If everything is correct it sets the password for the new user and saves it into database.
+Create two new files in templates/account directory.
+<ol>
+  <li><mark>register.html</mark>:
+    <pre><code class="html">
+    {% raw %}
+    {% extends 'blog/base.html' %}
+
+    {% block title %}Create an account{% endblock %}
+
+    {% block content %}
+
+    &lt;h2&gt;Create an account&lt;/h2&gt;
+    &lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+      {% csrf_token %}
+      {{ user_form.as_p }}
+      &lt;input type=&quot;submit&quot; value=&quot;Create account&quot;&gt;
+    &lt;/form&gt;
+
+    {% endblock %}  
+    {% endraw %}
+    </code></pre>
+  </li>
+  <li><mark>register_done.html</mark>:
+    <pre><code class="html">
+      {% raw %}
+      {% extends 'blog/base.html' %}
+
+      {% block title %}Account created{% endblock %}
+
+      {% block content %}
+
+      &lt;p&gt;Your account has been created. You can &lt;a href=&quot;{% url 'account:login' %}&quot;&gt;log in&lt;/a&gt; now.&lt;/p&gt;
+
+      {% endblock %}
+          
+      {% endraw %}
+    </code></pre>  
+  </li>
+</ol>
+Now go to 'http://127.0.0.1:8000/account/register/' and create a new user. Then go to login page and try to log in with the new user's credentials.
+</p>
