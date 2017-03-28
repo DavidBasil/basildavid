@@ -3,6 +3,12 @@
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  {% if page.keywords %}
+  <meta name="keywords" content="{{ page.keywords }}">
+  {% else %}
+  <meta name="keywords" content="Django, django, django-developer, python, web-developer">
+  {% endif %}
   <title>David Basil</title>
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
