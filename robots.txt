@@ -1,2 +1,0 @@
-User-agent: *
-Sitemap: basildavid.com/sitemap.xml
