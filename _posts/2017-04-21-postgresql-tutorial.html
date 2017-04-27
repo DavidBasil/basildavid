@@ -1,0 +1,172 @@
+---
+layout: post
+title: Postgresql Tutorial 
+description: Learn the basics of PostgreSql
+excerpt: Concepts, Installation, Queries
+---
+
+<div class="well">
+  <h4>Index</h4>
+  <ol>
+    <li><a href="#install">Installation</a></li>
+    <li><a href="#createdb">Create a database</a></li>
+    <li><a href="#createtb">Create a table</a></li>
+    <li><a href="#log">Logs</a></li>
+    <li><a href="#prevcommit">Revert</a></li>
+  </ol>
+</div>
+
+<p>Almost every web application needs some kind of database for data storage and retrieval. While MySql is the
+most widely used open source data management system, python/django developers favour Postgresql most of the ti
+me. Let's start with a questions: what is Postgresql?</p>
+
+<p>Postgresql is a free database management system that uses SQL language for data manipulation. It features
+many advanced functionalities and is perfect for complex, performance-driven systems. Postgres can be installe
+d on any major system but in this tutorial however we will play with database with the help of Ubuntu.</p>
+
+<hr />
+
+<p id="install">Open up your terminal and run the following command:
+<pre><code class="bash">sudo apt-get install postgresql</code></pre>
+This command will install Postgresql on your machine and also create the superuser "postgres" with the default
+password. The first thing we need to do after installation is to change that password. Run: 
+<pre><code class="bash">sudo -u postgres psql postgres</code></pre>
+"psql" is a command line tool for postgres database manegement; it is installed automatically alongside with the postgresql. We are now prompted by psql command line. Type <mark>"\password postgres" </mark> and you will be asked to type a new password. Enter "\q" if you want to exit the program.
+</p>
+
+<hr />
+
+<p>There are many other tools that can aid you in database management. Many programmers use so called "gui" clients like pgadmin or Beaver but I like to use simply a command line utilities because they are fast and simple. Graphical interfaces have their roles though and you can always use both of the worlds if you need to.</p>
+<p>In this tutorial we use "psql".</p>
+
+<hr />
+
+<p>So we have postgres installed, we have a superuser name and password. Now let's go and create our first database. First login into postgresql:
+<pre><code class="bash">sudo -u postgres psql</code></pre>
+And we are now logged in into psql. Psql has its own commands that we use for administration. <a href="https://www.postgresql.org/docs/9.2/static/app-psql.html">Here you can view all of those commands.</a> We will touch on only main ones.
+</p>
+
+<p>First, lets see the general information about our database. Type <mark>"\conninfo"</mark>. The terminal will output the info about the database, user, socket and port. Good. Now lets look at users and their permissions. Enter <mark>"\du"</mark>. and there you can see that the current user's name is "postgress" and his permissions are listed in attributes field. To find out which postgres version we are using run <mark>"show server_version"</mark></p>
+
+<p>Now we need to list all databases. Type <mark>"\l"</mark>. It will give us the list of all available databases. "postgres", "template0" and "template1" are default databases that come with postgres installation. We don't need to worry about them right now. We are going to create our own database.</p>
+
+<p id="createdb">To create the database run:
+<pre><code class="sql">CREATE DATABASE "database_name";</code></pre>
+For the sake of tutorial we call our first database just "tutorial":
+<pre><code class="sql">CREATE DATABASE tutorial;</code></pre>
+A little tip: due to conventions sql commands like "create", "select" and etc. are written in uppercase but in order to save effort I usually write this commands in lowercase but on the new line. For example: 
+<pre><code class="sql">select *
+from tutorial
+where first_name = 'David';
+</code></pre>
+Let's continue.
+</p>
+
+<p>So we created our first database called "tutorial". Type <mark>"\l"</mark> to confirm its existence. The next step is to connect to the database. The command that allows us to enter into the desired database is simple: <mark>"\c tutorial"</mark>. The terminal notifies us that we are now connected to "tutorial" database. The name of the database is always shown at the beggining of the prompt line.</p>
+	
+<p>Every database consists of tables. Table is a collection of fields and data. Fields represent columns and data rows are usually called records. <a href="http://www.cengage.com/school/corpview/RegularFeatures/DatabaseTutorial/db_elements/db_elements2.html">More on fields and records</a>. <mark>"\dt"</mark> command prints out all tables that exist in the current database. "No relations found" is outputed when there are no tables.</p>
+
+<p>Let's create a table called "users". In terminal run:
+<pre> <code class="sql">create table users(
+	user_id serial primary key,
+	first_name varchar(65),
+	last_name varchar(54),
+	active boolean
+);</code></pre>
+In brackets we define each field. Each line starts with the field's name followed by data type and constraints; (<a href="https://www.techonthenet.com/postgresql/datatypes.php">more on datatypes</a>). We can view table structure any time by running <mark>"\d table_name"</mark> command.
+</p>
+
+<p>We have a table that has user_id, first_name, last_name. Now lets insert some data. Type:
+<pre><code class="sql">insert into users
+values(
+	1, 'David', 'Basil', true
+);
+</code></pre>
+Command line confirms data insertion by printing "INSERT 0 1". Ok but how do we view that data? To view all records in the table run:
+<pre> <code class="sql">
+select *
+from users;
+</code></pre>
+Another tip: in psql type <mark>"table table_name"</mark>("table users;" in our case) instead of the "select" statements. It saves you a few seconds.
+</p>
+
+<p>"SELECT" means the same as "display" and asteriks denotes all rows. So basically the last command means "display all records from users table". Simple!</p> 
+
+<p>We can also specify the particualr fields that we want to fill out, for example:
+<pre><code class="sql">insert into users(first_name, last_name)
+values('John', 'Smith');
+</code></pre>
+Insert a couple rows into the table so we can have some data to play with.
+</p>
+<p>
+In a case when the table has hundreds and thousands of rows and you need to list let's say first 10 records then use "limit" keyword:
+<pre><code class="sql">select * 
+from users
+limit 10;
+</code></pre>
+Or if want to examine rows from 25 to 85:
+<pre>
+<code class="sql">
+select * 
+from users
+limit 85
+offset 25;
+</code>
+</pre>
+</p>
+
+<p>What is want to show onle the record where the first_name is 'David'? Its simple:
+<pre><code class="sql">select *
+from users
+where first_name = 'David';
+</code></pre>
+By running this command we output only the record which has 'David' as a first_name.
+</p>
+
+<p>We also can modify the order in which records are displayed. Let's say we want to output first_name, last_name and sort the results in alphabetical order:
+<pre><code class="sql">select first_name, last_name
+from users
+order by last_name;
+</code></pre>
+Postgres sorts results in ascending order by default but we can sort them in descending order by appending the last line with "desc".
+</p>
+
+<hr />
+
+<p>Now let's talk about altering out tables. Sometimes we need to add a column to the existing table. The operation can be performed by typing:
+<pre><code class="sql">alter table "table_name"
+add "column_name" "data_type" "contstraints";
+</code></pre>
+Add column "age" to users table:
+<pre><code class="sql">alter table users
+add age integer;
+</code></pre>
+And the column can be deleted with:
+<pre><code class="sql">alter table users
+drop age;
+</code></pre>
+And rename column:
+<pre><code>alter table "table_name"
+rename "column_name"
+to "new_name";
+</code></pre>
+</p>
+
+<hr />
+
+<p>All of those are just basics of Postgres. There are many more commands, tips and tricks for database management; it would take many blog posts to cover all of the core functionality. I <a href="">uploaded a little cheat sheet to github.</a> It lists all major psql and potgress statements that are often used in the wild. I will try to make is as comprehensive as possible in the future.</p>.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
