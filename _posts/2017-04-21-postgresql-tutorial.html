@@ -5,18 +5,7 @@ description: Learn the basics of PostgreSql
 excerpt: Concepts, Installation, Queries
 ---
 
-<div class="well">
-  <h4>Index</h4>
-  <ol>
-    <li><a href="#install">Installation</a></li>
-    <li><a href="#createdb">Create a database</a></li>
-    <li><a href="#createtb">Create a table</a></li>
-    <li><a href="#log">Logs</a></li>
-    <li><a href="#prevcommit">Revert</a></li>
-  </ol>
-</div>
-
-<p>Almost every web application needs some kind of database for data storage and retrieval. While MySql is the
+<p>Almost every web application needs some sort of database for data storage and retrieval. While MySql is the
 most widely used open source data management system, python/django developers favour Postgresql most of the ti
 me. Let's start with a questions: what is Postgresql?</p>
 
@@ -133,7 +122,7 @@ Postgres sorts results in ascending order by default but we can sort them in des
 
 <hr />
 
-<p>Now let's talk about altering out tables. Sometimes we need to add a column to the existing table. The operation can be performed by typing:
+<p id="altertg">Now let's talk about altering out tables. Sometimes we need to add a column to the existing table. The operation can be performed by typing:
 <pre><code class="sql">alter table "table_name"
 add "column_name" "data_type" "contstraints";
 </code></pre>
