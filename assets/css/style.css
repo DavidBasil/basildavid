@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
 
 body {
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .navbar-default {
@@ -13,7 +13,7 @@ a.navbar-brand {
   font-family: 'Source Code Pro', monospace;
 }
 
-i.fa.fa-github span {
+i.fa span {
   font-family: 'Source Code Pro', monospace;
 }
 
