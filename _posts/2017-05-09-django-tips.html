@@ -1,0 +1,79 @@
+---
+layout: post
+title: Django tips
+description: Django tips
+excerpt: Tips and tricks that every Django professional should know.
+---
+
+<p>There are many Django tutorials out there teaching about building blogs and social web apps. Most of them, however, are pretty superficial and don't share those "prefessional" tips that can help immensely with big projects. So I decided to write a blog post giving you advises that I've learnt for the past 6 months or so. I want this post to be continously evolving, adding more and more material to it over time.</p>
+
+<p>Let's start with the basics:</p>
+
+<ol>
+	<li><h3>Follow the guidelines</h3>
+		<p> <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8 </a>is the official style guide for Python. It's very easy to follow and if you read a couple of tutorials or a small book on Django, than you already know 80% of PEP 8. Obidience to official rules will always help you and other developers with the workflow.</p>	
+	</li>
+
+	<li><h3>Order of imports</h3>
+		<p>The correct order of imports is:
+		<pre><code># standard library
+from random import randint
+
+# django.core
+from django.db import models
+
+# third-party
+from rest_framework import serializers 
+
+# local imports
+from customers.models import Customer
+		</code></pre>
+		</p>	
+	</li>
+
+	<li><h3>Use explicit relative imports</h3>
+		<pre><code>orders/views.py
+
+# wrong!
+from orders.forms import OrderForm
+
+# correct
+from .forms import OrderForm	
+		</code></pre>	
+		<p>Explicitly stating relative imports makes apps much more portable and usable.</p>
+		<p>(Note: avoid using "import *", unless in very rare cases).</p>
+	</li>	
+
+	<li>
+		<h3>Use the same database</h3>
+		<p>Django uses sqlite3 by default so it's easy to get lazy and continue relying on it till the production time comes around. That's a mistake, however. Always use the same database tools whether during the development or production stage. Each database has its own quirks even though they might be using the same SQL language. PostgreSQL is a preferred database management system for Django projects so keep postgres intricacies in mind while developing your application.</p>
+	</li>
+
+	<li>
+		<h3>Always use virtual environment</h3>
+		<p>This is a no-brainer: your every django project should have its own isolated packages. For instance, we are using django version 1.10 for one project but version 1.11 for other one; if we don't put each project in seperate environment then there is a big chance that our workflow gets disrupted by conflicting versions. I suggest using <a href="https://virtualenv.pypa.io/en/stable/">virtualenv</a></p>
+	</li>
+
+	<li>
+		<h3>Use version control</h3>
+		<p>This is another absolutely a must-have tool that you must implement in any progamming project. <a href="https://git-scm.com/">Git</a> is an industry standard and is pretty easy to use. Once you start implementing version control in your work you will wonder how could you live without it.</p>
+	</li>
+
+	<li>
+		<h3>Keep apps small</h3>
+		<p>One of the most fundamental rules of Django states that each app should server one specific purpose and have a defined number of models. There are no strict standards but my rule of thumb is that no app should have more than 5 models. If number gets higher than that it means I need to break the app into several smaller apps.</p>
+	</li>
+
+	<li>
+		<h3>Keep virtual environments separate (optional)</h3>
+		<p>I personally like to keep anything project-related in one directory, including virtual environments; however, many professionals keep them separate from the main project files, like this "~/.env/project_name". You can continue to keep virtulenvs in the same folder, just know that you will often encounter such setups in the wild.</p>
+	</li>
+
+</ol>
+
+<h4 class="text-center">To Be Continued</h4>
+<!-- . break up settings.py; i like "base.py", "dev.py", "production.py". Import base.py in each module and add either local or production settings. --> 
+
+<!-- . (optional) keep virtual environments seperate, ~/.env/project_name/; i personally like to keep everything is one directory, matter of taste, just know that some developers do it that way. -->
+
+<!-- . use abstract model for inheritance; for example, first_name and last_name NameModel(models.Model) -->
