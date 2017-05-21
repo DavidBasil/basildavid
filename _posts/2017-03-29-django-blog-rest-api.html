@@ -68,6 +68,7 @@ In Meta class we define the model which we want to serialize and its fields. If 
 # rest api
 from rest_framework import viewsets
 from .serializers import PostSerializer
+from .models import Post
 
 ...
 class PostViewSet(viewsets.ModelViewSet):
