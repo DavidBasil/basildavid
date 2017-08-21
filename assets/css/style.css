@@ -4,6 +4,36 @@ body {
   font-size: 20px;
 }
 
+/* jumbotron todo: change bg color */
+.jumbotron { 
+	background-color: #f4511e; 
+	color: #fff;
+	padding: 100px 25px;
+}
+
+/* container-fluid */
+.container-fluid {
+	padding: 60px 50px;
+}
+
+/* custom stuff */
+.bg-grey {
+	background-color: #f6f6f6;
+}
+
+/* logo */
+.logo {
+	font-size: 40px;
+}
+
+/* media todo: put to the bottom */
+@media screen and (max-width: 768px) {
+	.col-sm-4 {
+		text-align: center;
+		margin: 25px 0;
+	}
+}
+
 .navbar-default {
   font-size: 20px;
 }
