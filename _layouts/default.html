@@ -6,11 +6,8 @@
   <meta charset="utf-8">
   <title>{{ page.title }}</title>
 	<link rel="icon" href="{{ site.baseurl }}/img/me.jpg"/>
-  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/monokai-sublime.min.css">
-	<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/animate.css"/>
-  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" type="text/css">
+	<!-- analytics -->
   {% if jekyll.environment == 'production' %}
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -23,15 +20,13 @@
   {% endif %}
   {% seo %}
 </head>
-<body>
+<body style="visibility:none">
 
 {{ content }}
 
 
-<script type="text/javascript" src="{{ site.baseurl }}/assets/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="{{ site.baseurl }}/assets/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-<script type="text/javascript" src="{{ site.baseurl }}/assets/js/main.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<script src="/assets/js/custom.js"></script>
 </body>
 </html>

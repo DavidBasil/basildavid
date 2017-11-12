@@ -1,5 +1,20 @@
 $(document).ready(function() {
+		// semantic ui
+	$('body').transition({
+		animation: 'fade in',
+		duration: 1000
+	})
+	// modal
+	$('#portfolioButton').on('click', function(){
+			$('.ui.modal')
+			.modal({
+				'transition': 'horizontal flip'
+			})
+				.modal('show')
+	})
+	$('.ui.embed').embed()
 
+		// contact form
     $('#contact-form').on('submit', function(e) {
         e.preventDefault();
         
