@@ -1,35 +1,72 @@
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta charset="utf-8">
-   <title>{{ page.title }}</title>
- 	<link rel="icon" href="{{ site.baseurl }}/img/me.jpg"/>
- 	<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/semantic.min.css" type="text/css">
- 	<!-- analytics -->
-   {% if jekyll.environment == 'production' %}
-   <script>
-   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-   ga('create', 'UA-96356726-1', 'auto');
-   ga('send', 'pageview');
-   </script>
-   {% endif %}
-   {% seo %}
- </head>
- <body>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>{{ page.title }}</title>
+	<link rel="icon" href="{{ site.baseurl }}/img/me.jpg"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/css/uikit.min.css" type="text/css">
+	<!-- analytics -->
+	{% if jekyll.environment == 'production' %}
+	<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96356726-1', 'auto');
+	ga('send', 'pageview');
+	</script>
+	{% endif %}
+	{% seo %}
+	<style type="text/css" media="screen">
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border-top: 2px solid #07d;
+  border-right: 2px solid transparent;
+  animation: spinner .6s linear infinite;
+}	
+	</style>
+</head>
+<body>
+<div class="spinner">
+	
+</div>
+<div style="display:none" id="content">
+{{ content }}
+</div>
 
- {{ content }}
 
 
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- <script src="{{ site.baseurl }}/assets/js/semantic.min.js"></script>
- <script src="{{ site.baseurl }}/assets/js/custom.js"></script>
- </body>
- </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/js/uikit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/js/uikit-icons.min.js"></script>
+<script src="{{ site.baseurl }}/assets/js/custom.js"></script>
+<script>
+	$(window).on('load', function(){
+		$('.spinner').remove()
+		$('#content').fadeIn(100)
+	})
+
+// todo: resolve spinner functionality
+$('.loadonclick').on('click', function(){
+	$('iframe').attr('src', 'https://www.youtube.com/embed/UTJzpkW3JaA')
+	$('#loader').fadeOut(2000)
+})
+</script>
+</body>
+</html>

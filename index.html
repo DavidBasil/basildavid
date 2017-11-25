@@ -2,58 +2,15 @@
 layout: default
 ---
 
-<div class="ui centered grid" style="margin-top:20px">
-		<div class="ui attached shape">
-			<div class="sides">
-				<div class="side active" id="about">
-					<div class="ui top attached violet button" id="contact-btn">Contact</div>
-					<div class="ui card">
-						<h3>David Basil</h3>	
-						<div class="ui small centered circular image">
-							<img src="https://d4n5pyzr6ibrc.cloudfront.net/media/27FB7F0C-9885-42A6-9E0C19C35242B5AC/D968A2D0-35B8-41C6-A94A0C5C5FCA0725/thul-3208cb1e-3118-5df2-8ab9-58e73f6da2b0.jpg?response-content-disposition=inline" alt="">	
-						</div><!-- /image -->
-						<br>
-						<div class="content">
-							Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-							tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-							vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-							no sea takimata sanctus est Lorem ipsum dolor sit amet.	
-						</div><!-- /content -->
-					</div><!-- /card -->	
-					<div class="ui bottom attached violet button" id="portfolio-btn">Portfolio</div>
-				</div><!-- /side active -->	
-				<div class="side" id="contact">
-					<div class="ui top attached violet button" id="portfolio-btn">Portfolio</div>
-						<div class="ui card">
-							<h3>Send me a message</h3>	
-							<br>
-							<form class="ui form">
-								<div class="field">
-									<label>Name</label>	
-									<input type="text">
-								</div>	
-								<div class="field">
-									<label>Email</label>	
-									<input type="email">
-								</div>
-								<button class="ui blue button" type="submit">Send</button>
-							</form>
-						</div><!-- /card -->	
-						<div class="ui bottom attached violet button" id="about-btn">About me</div>
-				</div><!-- /side -->
-	<div class="side" id="portfolio">
-					<div class="ui top attached violet button" id="about-btn">About</div>
-						<div class="ui card">
-							<h3>Portfolio</h3>	
-							<div class="content">
-								Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-								tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-								vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-								no sea takimata sanctus est Lorem ipsum dolor sit amet.	
-							</div><!-- /content -->
-						</div><!-- /card -->	
-						<div class="ui bottom attached violet button" id="contact-btn">Contact</div>
-				</div><!-- /side -->
-			</div><!-- /sides -->	
-		</div><!-- /shape -->
-</div><!-- /grid -->
+{% include nav.html %}
+<ul class="uk-switcher uk-margin">
+	<li class="uk-animation-fade">
+		{% include about.html %}
+	</li>	
+	<li>
+		{% include portfolio.html %}
+	</li>
+	<li>
+		{% include contact.html %}
+	</li>
+</ul>
