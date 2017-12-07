@@ -42,7 +42,7 @@
 	</style>
 </head>
 <body>
-<div class="spinner">
+<div class="spinner spinner1">
 	
 </div>
 <div style="display:none" id="content">
@@ -58,14 +58,16 @@
 <script src="{{ site.baseurl }}/assets/js/custom.js"></script>
 <script>
 	$(window).on('load', function(){
-		$('.spinner').remove()
+		$('.spinner spinner1').remove()
 		$('#content').fadeIn(100)
 	})
 
-// todo: resolve spinner functionality
-$('.loadonclick').on('click', function(){
+// todo: resolve spinner functionality and video loading
+$('#portfolioLink').on('click', function(){
 	$('iframe').attr('src', 'https://www.youtube.com/embed/UTJzpkW3JaA')
-	$('#loader').fadeOut(2000)
+	$('.spinner spinner2').fadeOut(1000)
+	$('#container').fadeIn(2000)
+	
 })
 </script>
 </body>
