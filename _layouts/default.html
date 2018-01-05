@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<title>{{ page.title }}</title>
 	<link rel="icon" href="{{ site.baseurl }}/img/me.jpg"/>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/css/uikit.min.css" type="text/css">
+	<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/uikit.css" type="text/css">
 	<!-- analytics -->
 	{% if jekyll.environment == 'production' %}
 	<script>
@@ -52,10 +52,9 @@
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/js/uikit.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.35/js/uikit-icons.min.js"></script>
-<script src="{{ site.baseurl }}/assets/js/custom.js"></script>
+<script src="{{ site.baseurl }}/assets/js/jquery.js"></script>
+<script src="{{ site.baseurl }}/assets/js/uikit.js"></script>
+<script src="{{ site.baseurl }}/assets/js/uikit-icons.js"></script>
 <script>
 	$(window).on('load', function(){
 		$('.spinner spinner1').remove()
