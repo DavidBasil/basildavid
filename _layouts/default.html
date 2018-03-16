@@ -19,55 +19,28 @@
 	</script>
 	{% endif %}
 	{% seo %}
-	<style type="text/css" media="screen">
-@keyframes spinner {
-  to {transform: rotate(360deg);}
-}
- 
-.spinner:before {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  width: 50px;
-  height: 50px;
-  margin-top: -10px;
-  margin-left: -10px;
-  border-radius: 50%;
-  border-top: 2px solid #07d;
-  border-right: 2px solid transparent;
-  animation: spinner .6s linear infinite;
-}	
-	</style>
 </head>
-<body>
-<div class="spinner spinner1">
-	
-</div>
-<div style="display:none" id="content">
+<body class="uk-animation-fade">
+<div class="uk-container">
+
+<nav class="uk-navbar-container uk-margin uk-navbar-transparent" uk-navbar>
+	<div class="uk-navbar-center">
+		<ul class="uk-navbar-nav">
+			<li>
+				<h2 class="uk-text-primary">DAVID_BASIL</h2>
+				<div class="uk-navbar-subtitle uk-text-center">
+					<img src="{{site.baseurl}}/img/me.jpg" alt="" class="uk-height-small uk-border-circle" >
+				</div><!-- /uk-navbar-subtitle -->
+			</li>
+		</ul>
+	</div>
+</nav>
+
 {{ content }}
 </div>
-
-
-
 
 <script src="{{ site.baseurl }}/assets/js/jquery.js"></script>
 <script src="{{ site.baseurl }}/assets/js/uikit.js"></script>
 <script src="{{ site.baseurl }}/assets/js/uikit-icons.js"></script>
-<script>
-	$(window).on('load', function(){
-		$('.spinner spinner1').remove()
-		$('#content').fadeIn(100)
-	})
-
-// todo: resolve spinner functionality and video loading
-$('#portfolioLink').on('click', function(){
-	$('iframe').attr('src', 'https://www.youtube.com/embed/UTJzpkW3JaA')
-	$('.spinner spinner2').fadeOut(1000)
-	$('#container').fadeIn(2000)
-	
-})
-</script>
 </body>
 </html>
