@@ -9,15 +9,16 @@
 
 <header>
 	<h1>David Basil</h1>
-	<nav>
-		<ul>
-			<li><a href="{{site.baseurl}}/">About</a></li>
-			<li><a href="{{site.baseurl}}/blog/">Blog</a></li>
-		</ul>
-	</nav>
+	{% include nav.html %}
 </header>
 
 {{ content }}
+
+<footer>
+	<hr>
+	{% include nav.html %}
+	<p>2018 David Basil</p>
+</footer>
 
 </body>
 </html>
