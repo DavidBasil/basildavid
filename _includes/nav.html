@@ -18,17 +18,23 @@
 			<li><p>Coming soon...</p></li>
 			<li>
 
-				<form>
-					<div class="uk-margin">
+				<form class="uk-grid-small" uk-grid>
+					<div class="uk-width-1-2">
 						<div class="uk-inline">
 							<span class="uk-form-icon" uk-icon="icon: user"></span>
 							<input type="text" class="uk-input" placeholder="NAME">
 						</div><!-- /uk-inline -->
-						<div class="uk-inline">
+					</div><!-- /uk-width-1-2 -->
+					<div class="uk-width-1-2">
+						<div class="uk-inline uk-align-right">
 							<span class="uk-form-icon" uk-icon="icon: mail"></span>
 							<input type="email" class="uk-input" placeholder="EMAIL">
 						</div><!-- /uk-inline -->
-					</div><!-- /uk-margin -->	
+					</div><!-- /uk-width-1-2 -->
+					<div class="uk-width-1-1">
+						<textarea name="message" rows="8" cols="40" class="uk-textarea" placeholder="MESSAGE"></textarea>
+					</div><!-- /uk-width-1-1 -->
+					<input type="submit" class="uk-button uk-button-default uk-width-1-1" value="Send it my way">
 				</form>
 
 			</li>
