@@ -17,6 +17,7 @@ $(document).ready(function(){
 				message: message
 			},
 			dataType: "json",
+			contentType: "application/json; charset=utf-8",
 			success: function(){
 				console.log('sucess')
 				$('#emailForm').hide()
