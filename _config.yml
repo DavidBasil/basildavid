@@ -1,4 +1,4 @@
-baseurl: /davidbasil.net
+baseurl: /
 exclude: ['README.md']
 permalink: pretty
 plugins:
