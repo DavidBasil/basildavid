@@ -2,4 +2,15 @@
 layout: default
 ---
 
-<h2>Blog</h2>
+<div class="uk-container uk-margin-top" uk-scrollspy="cls: uk-animation-fade; target: > ul > li; delay: 200">
+
+	<ul class="uk-list uk-list-divider uk-list-large">
+		{% for post in site.posts %}
+		<li>
+			<a href="{{site.baseurl}}{{post.url}}" class="uk-link-reset"><h2>{{post.title}}</h2></a>
+			<a href="{{site.baseurl}}{{post.url}}">click to read more</a>
+		</li>
+		{% endfor %}
+	</ul>
+
+</div><!-- /uk-container -->

@@ -1,22 +1,31 @@
-<nav class="uk-navbar-container" uk-navbar>
+<nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+	<!-- navbar-left -->
 	<div class="uk-navbar-left">
+		<a href="" class="uk-navbar-item uk-logo">
+			<img src="{{site.baseurl}}/img/logo.png" alt="">
+		</a>
+	</div><!-- /uk-navbar-left -->
+	<div class="uk-navbar-center uk-visible@s">
 		<ul class="uk-navbar-nav">
 			<li class="{% if page.url == '/' %}uk-active{% endif %}"><a href="{{site.baseurl}}/">About</a></li>
 			<li class="{% if page.url == '/blog/' %}uk-active{% endif %}"><a href="{{site.baseurl}}/blog/">Blog/Vlog</a></li>
 			<li class="{% if page.url == '/contact/' %}uk-active{% endif %}"><a href="{{site.baseurl}}/contact">Contact</a></li>
 		</ul>
-	</div><!-- /uk-navbar-left -->
-
-	<div class="uk-navbar-center">
-		<h2 class="uk-text-justify">David_Basil</h2>
 	</div><!-- /uk-navbar-center -->
-
+	<!-- offcanvas switcher -->
 	<div class="uk-navbar-right">
+		<a class="uk-navbar-toggle uk-hidden@m" uk-toggle="target: #offcanvas">
+			<span uk-navbar-toggle-icon></span><span class="uk-margin-small-left">MENU</span>
+		</a>
+	</div>
+	{% include offcanvas.html %}
+	<!-- navbar-right -->
+	<div class="uk-navbar-right uk-visible@s">
 		<ul class="uk-navbar-nav">
-			<li><a href=""><span uk-icon="icon: youtube"></span></a></li>
+			<li><a href="" class="uk-button uk-button-danger"><span uk-icon="icon: youtube" class="uk-light"></span></a></li>
 			<li><a href=""><span uk-icon="icon: github"></span></a></li>
-			<li><a href=""><span uk-icon="icon: linkedin"></span></a></li>
-			<li><a href=""><span uk-icon="icon: twitter"></span></a></li>
+			<li><a href="" class="uk-button uk-button-primary"><span uk-icon="icon: linkedin" class="uk-light"></span></a></li>
+			<li><a href="" class="uk-button"><span uk-icon="icon: twitter"></span></a></li>
 		</ul>
 	</div><!-- /uk-navbar-right -->
 </nav>
