@@ -7,23 +7,23 @@ layout: default
 	<h3>Contact Me</h3>
 	<hr class="uk-divider-icon">
 
-	<form class="uk-margin-medium-top">
+	<form class="uk-margin-medium-top" id="emailForm">
 
 		<div class="uk-margin">
 			<div class="uk-inline">
-				<input type="text" class="uk-input uk-width-medium" placeholder="NAME">
+				<input type="text" class="uk-input uk-width-medium" placeholder="NAME" id="name">
 			</div><!-- /uk-inline -->
 		</div><!-- /uk-margin -->
 
 		<div class="uk-margin">
 			<div class="uk-inline">
-				<input type="email" class="uk-input uk-width-medium" placeholder="EMAIL">
+				<input type="email" class="uk-input uk-width-medium" placeholder="EMAIL" id="email">
 			</div><!-- /uk-inline -->
 		</div><!-- /uk-margin -->
 
 		<div class="uk-margin">
 			<div class="uk-inline">
-				<textarea name="message" rows="8" cols="40" placeholder="MESSAGE" class="uk-textarea uk-width-large"></textarea>
+				<textarea name="message" rows="8" cols="40" placeholder="MESSAGE" class="uk-textarea uk-width-large" id="message"></textarea>
 			</div><!-- /uk-inline -->
 		</div><!-- /uk-margin -->
 
@@ -32,4 +32,9 @@ layout: default
 	</form>
 
 	<hr class="uk-divider-icon">
+
+	<div id="thankYou" style="display: none">
+		<p>Thank you for contacting me. I will answer within 12 hours.</p>
+	</div>
+
 </div><!-- /uk-container uk-text-center -->
