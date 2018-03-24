@@ -1,28 +1,25 @@
 $(document).ready(function(){
 
-	$('#emailForm').on('submit', function(e){
-		e.preventDefault()
-		// get the fields
-		var name = $('#name').val()
-		var email = $('#email').val()
-		var message = $('#message').val()
-		// ajax to formspree
+	var $contactForm = $('#emailForm');
+	$contactForm.submit(function(e) {
+		e.preventDefault();
 		$.ajax({
-			url: 'https://formspree.io/info@davidbasil.net',
+			url: '//formspree.io/info@davidbasil.net',
 			method: 'POST',
-			data: {
-				name: name,
-				_replyto: email,
-				email: email,
-				message: message
+			data: $(this).serialize(),
+			dataType: 'json',
+			beforeSend: function() {
+				$contactForm.append('<div class="alert alert--loading">Sending message…</div>');
 			},
-			dataType: "json",
-			success: function(){
-				console.log('sucess')
-				$('#emailForm').hide()
-				$('#thankYou').show()
+			success: function(data) {
+				$contactForm.find('.alert--loading').hide();
+				$contactForm.append('<div class="alert alert--success">Message sent!</div>');
+			},
+			error: function(err) {
+				$contactForm.find('.alert--loading').hide();
+				$contactForm.append('<div class="alert alert--error">Ops, there was an error.</div>');
 			}
-		})
-	})
+		});
+	});
 
 })
