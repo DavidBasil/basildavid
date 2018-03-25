@@ -5,7 +5,7 @@
 			<img src="{{site.baseurl}}/img/logo.png" alt="">
 		</a>
 	</div><!-- /uk-navbar-left -->
-	<div class="uk-navbar-center uk-visible@s">
+	<div class="uk-navbar-center uk-visible@m">
 		<ul class="uk-navbar-nav">
 			<li class="{% if page.url == '/' %}uk-active{% endif %}"><a href="{{site.baseurl}}/">About</a></li>
 			<li class="{% if page.url == '/blog/' %}uk-active{% endif %}"><a href="{{site.baseurl}}/blog/">Blog/Vlog</a></li>
@@ -20,12 +20,13 @@
 	</div>
 	{% include offcanvas.html %}
 	<!-- navbar-right -->
-	<div class="uk-navbar-right uk-visible@s">
+	<div class="uk-navbar-right uk-visible@m">
 		<ul class="uk-navbar-nav">
-			<li><a href="" class="uk-button uk-button-danger"><span uk-icon="icon: youtube" class="uk-light"></span></a></li>
-			<li><a href=""><span uk-icon="icon: github"></span></a></li>
-			<li><a href="" class="uk-button uk-button-primary"><span uk-icon="icon: linkedin" class="uk-light"></span></a></li>
-			<li><a href="" class="uk-button"><span uk-icon="icon: twitter"></span></a></li>
+			<li><a href="https://www.youtube.com/channel/UC_eR1E_lyG7o74WdwZJDMog" class="uk-button uk-button-danger" target="_blank"><span uk-icon="icon: youtube" class="uk-light"></span></a></li>
+			<li><a href="https://github.com/DavidBasil" target="_blank"><span uk-icon="icon: github"></span></a></li>
+			<!-- todo: check linkedin -->
+			<li><a href="https://www.linkedin.com/in/david-basil-69a652143/" class="uk-button uk-button-primary" target="_blank"><span uk-icon="icon: linkedin" class="uk-light"></span></a></li>
+			<li><a href="https://twitter.com/basil_django" class="uk-button" target="_blank"><span uk-icon="icon: twitter"></span></a></li>
 		</ul>
 	</div><!-- /uk-navbar-right -->
 </nav>
