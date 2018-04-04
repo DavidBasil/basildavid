@@ -1,0 +1,36 @@
+---
+layout: post
+title: Articles controller for a Rails app
+meta: Click to read more
+---
+
+<p>Rails model is useless without a corresponding controller. We need controllers to connect the database with the views and perform "CRUD" actions.</p>
+
+<p>Make sure you're in the right directory and type in your terminal:</p>
+
+<pre><code>rails g controller Articles</code></pre>
+
+<p>Rails has just generated an Articles controller with corresponding css and coffeescript files. Rails is really smart!</p>
+
+<p>Ruby on rails has its own conventions and thoughts about performing the standard "CRUD" actions. Open the newly created Articles controller file ()</p>
+
+<ul>
+  <li>index</li>
+	<li>show</li>
+	<li>new</li>
+	<li>edit</li>
+	<li>create</li>
+	<li>update</li>
+	<li>destroy</li>
+</ul>
+
+<p>With actions a controller is pretty much useless. Rails philosophy insists on having a seven actions for the "CRUD" functionality. Let's start with the first one: new.</p>
+<p>Open "app/controllers/application_controller.rb" file and create a new function called "new":</p> 
+
+<pre><code class="ruby">
+class ArticlesController < ApplicationController
+  def new
+  end
+end
+</code></pre>
+

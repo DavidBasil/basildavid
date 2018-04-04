@@ -1,0 +1,21 @@
+---
+layout: post
+title: 'Article model for Rails'
+meta: Click to read more
+---
+
+<p>Every web application needs a database for the data storage. Rails makes the process of data management very easy and intuitive.</p>
+
+<p>Let's generate a model for our blog application.</p>
+
+<pre><code class="bash">rails g model Article title:string text:text</code></pre>
+<p>With this line of code rails generates a database table called "articles" with the columns of title and text.</p>
+<p>Now we need to run migration to apply all of this stuff to the database of our choice.</p>
+<pre><code class="bash">rails db:migrate</code></pre>
+
+<p>The last thing to do is to modify "routes.rb". We put the this code into it:</p>
+<pre><code class="ruby">
+resources :articles
+</code></pre>
+
+<p>"Resource" is a Rails term for a collection of items, such as articles. When we define a resource for our routes, Rails automatically provides us with a full "CRUD" functionality for create, read, update and delete actions.</p>

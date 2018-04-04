@@ -1,0 +1,20 @@
+---
+layout: post
+title: 'Start a Rails project in under 1 minute'
+meta: Click to read more
+---
+
+<p>First of all, make sure you have ruby, sqlite3 and rails installed on your machine.</p>
+
+<pre><code class="bash">ruby -v</code></pre>
+<pre><code class="bash">sqlite3 --version</code></pre>
+<p>We need sqlite for the developement environment. You can use any other database if you want but Rails uses sqlite by default so we are going to keep it for simplicity.</p>
+<pre><code class="bash">rails -v</code></pre>
+
+<p>Go to your projects folder and run:</p>
+<pre><code class="bash">rails new blog</code></pre>
+
+<p>This command will create a fresh project folder filled with all the necessary files. Go to that folder and run:</p>
+<pre><code class="bash">rails s</code></pre><p> to start a server.</p>
+
+<p>Open up your browser and go to "localhost:3000". You will see that our Rails app works as intended.</p>

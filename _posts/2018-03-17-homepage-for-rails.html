@@ -1,0 +1,25 @@
+---
+layout: post
+title: 'Create a homepage for a Rails application'
+meta: Click to read more
+---
+
+<p>Let's extend on the previous post and create a home page for our blog application.</p>
+
+<p>Run <pre><code class="bash">rails g controller Home index</code></pre>This command will generate a controller named "Home" with an index action and all other necessary files.</p>
+
+<p>Now open up "app/views/welcome/index.html" file, delete everything in it and put 
+{% highlight html%}
+<h1>Hello World</h1>
+{% endhighlight %}
+there. We have our view ready.</p>
+
+<p>The last step is to tell Rails that we want to display index action of the "Home" controller when the user goes to our home page. Open "routes.rb" file and put the following code into it:
+{% highlight html %}
+Rails.application.routes.draw do
+  root 'welcome#index'
+end
+{% endhighlight %}
+What this piece of code does is that it maps the root page of the app to the home controller's index action.</p>
+<p>Check your browser and see that it works.</p>
+
